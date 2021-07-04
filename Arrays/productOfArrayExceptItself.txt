@@ -1,0 +1,39 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+       
+        int leftpro[]=new int[nums.length];
+        Arrays.fill(leftpro,1);
+        
+        for(int i=0;i<leftpro.length;i++)
+        {
+            if(i==0)
+                leftpro[i]=nums[i];
+            
+            else
+            {
+                leftpro[i]=leftpro[i-1]*nums[i];
+            }
+        }
+        int product=1;
+        
+        for(int i=leftpro.length-1;i>=0;i--)
+        {
+            if(i==leftpro.length-1)
+            {
+                leftpro[i]=leftpro[i-1];
+                product*=nums[i];
+            }
+            
+            else if(i==0)
+                leftpro[i]=product;
+            
+            else
+            {
+                leftpro[i]=leftpro[i-1]*product;
+                product*=nums[i];
+            }
+        }
+        
+        return leftpro;
+    }
+}
