@@ -1,0 +1,55 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int peak=-1;
+        
+        for(int i=nums.length-1;i>0;i--)
+        {
+            if(nums[i]>nums[i-1])
+            {
+                peak=i-1;
+                break;
+            }
+        }
+        
+        if(peak==-1)
+        {
+            reverse(nums,0);
+        }
+        
+        else
+        {
+        
+        int idx=nums.length-1;
+            
+        for(int i=nums.length-1;i>peak;i--)
+        {
+            if(nums[i]>nums[peak])
+            {
+                idx=i;
+                break;
+            }
+        }
+        
+        swap(nums,peak,idx);
+        reverse(nums,peak+1);
+        }
+    }
+    
+   private void reverse(int [] nums,int start)
+    {
+        int end=nums.length-1;
+        
+        while(start<end)
+        {
+            swap(nums,start,end);
+                start++;
+                end--;
+        }
+    }
+   private void swap(int nums[],int i,int j)
+    {
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
+}
