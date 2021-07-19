@@ -1,0 +1,20 @@
+class Solution {
+    public int reverse(int x) {
+        
+        long ans=0;
+        while(x!=0)
+        {
+            int temp=x%10;
+            ans=ans*10+temp;
+            x/=10;
+        }
+        
+        int compare=(int)Math.pow(2,31)-1;
+        int compare2=(int)Math.pow(-2,31);
+        
+        if(ans<=compare&&ans>=compare2)
+            return (int)ans;
+        
+        return 0;
+    }
+}

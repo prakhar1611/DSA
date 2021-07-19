@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isHappy(int n) {
+        
+        int temp=0;
+        int ans=n;
+        while(n>9)        
+        {
+            temp=n;
+            ans=0;//19
+            while(temp!=0)  
+            {
+            int x=temp%10;     
+            ans+=x*x;        
+            temp/=10;         
+            }
+            n=ans;
+        }
+        
+        if(ans==1||n==7)
+        return true;
+        
+        return false;
+    }
+}
