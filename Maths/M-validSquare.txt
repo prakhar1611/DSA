@@ -1,0 +1,39 @@
+class Solution {
+    
+    static int distance(int p1[],int p2[])
+    {
+        int ans = (p2[0]-p1[0])*(p2[0]-p1[0])+(p2[1]-p1[1])*(p2[1]-p1[1]);
+        return ans;
+    }
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        
+        int count=0;
+        
+        int d1=distance(p1,p2);
+        int d2=distance(p1,p3);
+        int d3=distance(p1,p4);
+        int d4=distance(p2,p3);
+        int d5=distance(p2,p4);
+        int d6=distance(p3,p4);
+        int a[]={d1,d2,d3,d4,d5,d6};
+        
+        Map<Integer,Integer> map = new HashMap();
+        
+        for(int i=0;i<6;i++)
+        {
+            if(map.containsKey(a[i]))
+                map.put(a[i],map.get(a[i])+1);
+            
+            else
+                map.put(a[i],1);
+        }
+        
+        if(map.size()!=2)
+            return false;
+        
+        if(map.containsValue(4)&&!map.containsKey(0))
+            return true;
+        
+        return false;
+    }
+}

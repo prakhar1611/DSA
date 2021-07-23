@@ -1,0 +1,73 @@
+class Solution {
+    public int myAtoi(String s) {
+        
+        int countOfSpaces=0;
+        
+        for(int i=0;i<s.length();i++)
+        {
+            if(s.charAt(i)==' ')
+                countOfSpaces++;
+            else break;
+        }
+        
+        if(s.length()==0||s.length()==countOfSpaces)
+            return 0;
+        
+        boolean negative=false;
+        boolean positive=false;
+        
+        if(s.charAt(countOfSpaces)=='-')
+        {
+            negative=true;
+            countOfSpaces++;
+        }
+        
+        else if(s.charAt(countOfSpaces)=='+')
+        {
+            positive=true;
+            countOfSpaces++;
+        }
+       int countOfDigits=0;
+        long ans=0;
+        
+        int leadingZeros=0;
+        for(int i=countOfSpaces;i<s.length();i++)
+        {
+            if(s.charAt(i)=='0')
+                leadingZeros++;
+            
+            else break;
+        }
+        for(int i=countOfSpaces;i<s.length();i++)
+        {
+            if(Character.isDigit(s.charAt(i)))
+            {
+                ans=ans*10+(s.charAt(i)-48);
+                countOfDigits++;
+            }
+            
+            else break;
+        }
+      
+        
+     
+        if(countOfDigits-leadingZeros>18&&negative==true)
+            return Integer.MIN_VALUE;
+        
+         if(countOfDigits-leadingZeros>18)
+            return Integer.MAX_VALUE;
+      
+        
+        if(ans>Integer.MAX_VALUE&&negative==true)
+            return Integer.MIN_VALUE;
+        
+         if(ans>Integer.MAX_VALUE)
+            return Integer.MAX_VALUE;
+        
+        if(negative==true)
+            return (int)ans*-1;
+        
+        return (int)ans;
+        
+    }
+}
