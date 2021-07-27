@@ -1,0 +1,48 @@
+class Solution {
+    public void gameOfLife(int[][] board) {
+        
+        int dir[][]=new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+        
+        int n=board.length;
+        int m=board[0].length;
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                int liveCellCount=0;
+                for(int[] d: dir)
+                {
+                    int p=i+d[0];
+                    int q=j+d[1];
+                    
+                     if(p>=0 && p<n && q>=0 && q<m && (board[p][q]==1||board[p][q]==2))
+                        liveCellCount++;
+                }
+            
+            System.out.print(liveCellCount+" ");
+            if(board[i][j]==1)
+            {
+            if(liveCellCount<2||liveCellCount>3)
+            {
+                board[i][j]=2;
+            }
+            }    
+            
+           else
+            {
+               if(liveCellCount==3)
+                board[i][j]=3;
+            }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                    board[i][j]%=2;
+            }
+        }
+        
+    }
+}
