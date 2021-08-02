@@ -1,0 +1,30 @@
+class Solution {
+    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {
+        
+        //sorting the array to make sure all the cuts are in serial order
+        int modulo=1000000007;
+        
+        Arrays.sort(horizontalCuts);
+        Arrays.sort(verticalCuts);
+        
+        int m=horizontalCuts.length;
+        int n=verticalCuts.length;
+        
+        int maxHeight=Math.max(horizontalCuts[0],h-horizontalCuts[m-1]);
+        int maxWidth=Math.max(verticalCuts[0],w-verticalCuts[n-1]);
+        
+        for(int i=1;i<m;i++)
+        {
+            maxHeight=Math.max(maxHeight,horizontalCuts[i]-horizontalCuts[i-1]);
+        }
+        
+        
+        for(int i=1;i<n;i++)
+        {
+            maxWidth=Math.max(maxWidth,verticalCuts[i]-verticalCuts[i-1]);
+        }
+        System.out.println(maxHeight);
+        System.out.println(maxWidth);
+        return (int)(maxHeight * 1L * maxWidth % modulo);
+    }
+}

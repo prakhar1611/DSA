@@ -1,0 +1,36 @@
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+        
+        int sum=0;
+        for(int i=0;i<cardPoints.length;i++)
+            sum+=cardPoints[i];
+        
+        
+        if(cardPoints.length==k)
+            return sum;
+        
+        int windowSize=cardPoints.length-k;
+        
+        int currSum=0;
+        int storedSum=0;
+        
+        for(int i=0;i<windowSize;i++)
+        {
+            currSum+=cardPoints[i];
+            storedSum+=cardPoints[i];
+        }
+        
+        int j=0;
+        for(int i=windowSize;i<cardPoints.length;i++)
+        {
+            currSum-=cardPoints[j];
+            currSum+=cardPoints[i];
+            j++;
+            
+            if(currSum<storedSum)
+                storedSum=currSum;
+        }
+      
+        return sum-storedSum;
+    }
+}
