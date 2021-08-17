@@ -11,7 +11,7 @@ class Solution {
         map.put('D',500);
         map.put('M',1000);
         
-        //the logic goes if ith charAt(i) < charAt(i+1), then subtract else sum
+        //the logic goes if ith charAt(i) < charAt(i+1), then subtract else sum....
         int result=map.get(s.charAt(s.length()-1));
  
         for(int i=s.length()-2;i>=0;i--)
