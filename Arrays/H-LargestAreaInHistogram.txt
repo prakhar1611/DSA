@@ -1,0 +1,64 @@
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        
+        int n=heights.length;
+        int leftSmall[]=new int[n];
+        int rightSmall[]=new int[n];
+        
+        int ans=0;
+        Stack<Integer> s = new Stack();
+        
+        leftSmall[0]=0;
+        rightSmall[n-1]=n-1;
+        
+        s.push(0);
+        for(int i=1;i<n;i++)
+        {
+            while(s.isEmpty()==false&&heights[i]<=heights[s.peek()])
+                s.pop();
+            
+            if(s.isEmpty()==false)
+                leftSmall[i]=s.peek()+1;
+            else
+                leftSmall[i]=0;
+            
+            s.push(i);
+        }
+        
+        while(s.isEmpty()==false)
+            s.pop();
+        
+        s.push(n-1);
+        
+        for(int i=n-2;i>=0;i--)
+        {
+             while(s.isEmpty()==false&&heights[i]<=heights[s.peek()])
+                s.pop();
+            
+             if(s.isEmpty()==false)
+                rightSmall[i]=s.peek()-1;
+            else
+                rightSmall[i]=n-1;
+            
+            s.push(i);
+        }
+        
+            for(int i=0;i<n;i++)
+            {
+                int curr=heights[i]*(rightSmall[i]-leftSmall[i]+1);
+                
+                if(curr>ans)
+                    ans=curr;
+            }
+        
+    for(int i=0;i<n;i++)
+    System.out.println(leftSmall[i]+" ");
+        
+        System.out.println();
+        
+      for(int i=0;i<n;i++)
+    System.out.println(rightSmall[i]+" ");
+        
+        return ans;
+    }
+}

@@ -1,0 +1,28 @@
+class Solution {
+    public String addStrings(String num1, String num2) {
+        
+        int n=num1.length()-1;
+        int m=num2.length()-1;
+        int carry=0;
+        StringBuilder ans=new StringBuilder("");
+        while(m>=0||n>=0||carry!=0)
+        {
+            int x=0,y=0;
+            if(n>=0)
+             x=num1.charAt(n)-48;
+            if(m>=0)
+             y=num2.charAt(m)-48;
+            
+            int z=x+y+carry;
+            carry=z/10;
+            ans.append(z%10);
+            
+            m--;
+            n--;
+        }
+       
+        
+        String ans1= new String(ans.reverse());
+        return ans1;
+    }
+}
