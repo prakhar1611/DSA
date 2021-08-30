@@ -1,0 +1,34 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        
+        
+        Map<Integer, StringBuilder> map = new HashMap();
+        
+        boolean inc=true;
+        
+        int i=0;
+        for(char a: s.toCharArray())
+        {
+            if(i==numRows) inc=false;
+            
+            if(i==1) inc = true;
+            
+            
+            if(inc)
+            i++;
+            else i--;
+            
+            if(!map.containsKey(i))
+                map.put(i,new StringBuilder());
+            
+                map.get(i).append(a);
+        }
+        StringBuilder ans= new StringBuilder();
+        
+        for(int k: map.keySet())
+            ans.append(map.get(k));
+        
+        
+        return ans.toString();
+    }
+}
