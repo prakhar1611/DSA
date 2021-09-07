@@ -1,0 +1,74 @@
+class Solution {
+    static String leftJustify(String words[],int diff, int i, int j)
+    {
+        int space = diff- (j-i-1);
+        
+        StringBuilder str = new StringBuilder(words[i]);
+        
+        for(int k=i+1;k<j;k++)
+        {
+            str.append(" "+words[k]);
+        }
+        
+        str.append(" ".repeat(space));
+        
+        return str.toString();
+    }
+    
+     static String rightJustify(String words[],int diff, int i, int j)
+    {
+        
+         int single = j-i-1;
+         
+         int equalEx = diff/single;
+         
+         int extra = diff%single;
+         
+         StringBuilder strr = new StringBuilder(words[i]);
+        
+        for(int k=i+1;k<j;k++)
+        {
+            int s = equalEx +(extra-- > 0? 1: 0);
+            // System.out.println(s);
+            strr.append(" ".repeat(s)+words[k]);
+        }
+         // System.out.println(diff);
+         
+         return strr.toString();
+    }
+    
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        
+        List<String> ans = new ArrayList();
+        
+        int i=0;
+        int n =words.length;
+        
+        while(i<n)
+        {
+            int j=i+1;
+            
+            int lineLength=words[i].length();
+            
+            while(j<n&& (lineLength+words[j].length()+(j-i-1) < maxWidth))
+            {
+                lineLength+=words[j].length();
+                j++;
+            }
+            
+            int diff=maxWidth-lineLength;
+             // System.out.println(diff);
+            int numOfWords=j-i;
+            
+            if(numOfWords==1||j>=n)
+                ans.add(leftJustify(words,diff,i,j));
+            
+            else
+                ans.add(rightJustify(words,diff,i,j));    
+            
+            i=j;
+        }
+     
+        return ans;
+    }
+}
