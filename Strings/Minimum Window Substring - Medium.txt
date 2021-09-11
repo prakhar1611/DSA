@@ -1,0 +1,66 @@
+class Solution {
+    public String minWindow(String s, String t) {
+       
+        String ans = "";
+        
+        Map<Character, Integer> map2= new HashMap();
+        
+          for(int i=0;i<t.length();i++)
+          map2.put(t.charAt(i),map2.getOrDefault(t.charAt(i),0)+1);
+        
+        int i=-1;
+        int j=-1;
+        int mtch=0;
+        int rmtch=t.length();
+        
+        Map<Character,Integer> map1 = new HashMap();
+        
+        while(true)
+        {
+            boolean f1=false;
+            boolean f2=false;
+            
+            while(i<s.length()-1&&mtch<rmtch)
+            {
+                i++;
+                char a = s.charAt(i);
+                map1.put(a,map1.getOrDefault(a,0)+1);
+                
+                if(map1.getOrDefault(a,0)<=map2.getOrDefault(a,0))
+                    mtch++;
+                
+                f1=true;
+            }
+            
+            while(j<i&&mtch==rmtch)
+            {
+                String poss = s.substring(j+1,i+1);
+                
+                if(ans.length()==0||poss.length()<ans.length())
+                    ans=poss;
+                
+                j++;
+                char m = s.charAt(j);
+                
+                if(map1.get(m)==1)
+                    map1.remove(m);
+                
+                else
+                    map1.put(m,map1.getOrDefault(m,0)-1);
+                
+                
+                if(map1.getOrDefault(m,0)<map2.getOrDefault(m,0))
+                    mtch--;
+                
+                f2=true;
+            }
+            
+            if(f1==false&&f2==false)
+                break;
+        }
+        
+        
+        return ans;
+        
+    }
+}
