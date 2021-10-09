@@ -1,0 +1,54 @@
+class Solution{
+public:	
+	/* if x is present in arr[] then returns the count
+		of occurrences of x, otherwise returns 0. */
+	int count(int arr[], int n, int target) {
+	    // code here
+	   int low=0;
+	   int high=n-1;
+	   int x=-1;
+	   
+	   while(low<=high)
+	   {
+	       int mid = low + (high-low)/2;
+	       
+	       if(arr[mid]==target)
+	       {
+	           x=mid;
+	           high=mid-1;
+	       }
+	       
+	       else if(arr[mid]>target)
+	       high=mid-1;
+	       
+	       else
+	       low=mid+1;
+	   }
+	   
+	   if(x==-1)
+	   return 0;
+	   
+	   low =0;
+	   high=n-1;
+	   int y=-1;
+	   
+	   while(low<=high)
+	   {
+	       int mid = low + (high-low)/2;
+	       
+	       if(arr[mid]==target)
+	       {
+	           y=mid;
+	           low=mid+1;
+	       }
+	       
+	       else if(arr[mid]>target)
+	       high=mid-1;
+	       
+	       else
+	       low=mid+1;
+	   }
+	   
+	   return y-x+1;
+	}
+};
