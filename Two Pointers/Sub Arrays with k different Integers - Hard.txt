@@ -1,0 +1,130 @@
+class Solution {
+    static void removeFromMap(HashMap<Integer,Integer> a,int x)
+    {
+        if(a.get(x)==1)
+            a.remove(x);
+        
+        else
+            a.put(x,a.get(x)-1);
+    }
+    
+    static int solFor1(int nums[])
+    {
+         int ans =0;
+        HashMap<Integer,Integer> m = new HashMap();
+        
+        int i=-1;
+        int j=-1;
+        while(true)
+        {
+            boolean f1=false;
+            boolean f2=false;
+            
+            while(i<nums.length-1)
+            {
+                f1=true;
+                i++;
+                m.put(nums[i],m.getOrDefault(nums[i],0)+1);
+                
+                if(m.size()==2)
+                {
+                    removeFromMap(m,nums[i]);
+                    i--;
+                    break;
+                }
+                
+            }
+            
+            while(j<i)
+            {
+                f2=true;
+                if(m.size()==1)
+                    ans+=i-j;
+                
+                j++;
+                removeFromMap(m,nums[j]);
+                
+                if(m.size()==0)
+                    break;
+            }
+            
+            if(f1==false&&f2==false)
+                break;
+        }
+        return ans;
+    }
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        
+        if(k==1)
+        return solFor1(nums);
+        
+       int ans =0;
+        
+       HashMap<Integer,Integer> Bmap = new HashMap();
+       HashMap<Integer,Integer> Smap = new HashMap();
+        
+        
+        int sR=-1;
+        int bR=-1;
+        int l=-1;
+        
+        while(true)
+        {
+            boolean f1=false;
+            boolean f2=false;
+            boolean f3=false;
+            
+            while(bR<nums.length-1)
+            {
+                f1=true;
+                bR++;
+                Bmap.put(nums[bR],Bmap.getOrDefault(nums[bR],0)+1);
+                
+                if(Bmap.size()==k+1)
+                {
+                    removeFromMap(Bmap,nums[bR]);
+                    bR--;
+                    break;
+                }
+            }
+            
+            while(sR<bR)
+            {
+                f2=true;
+                sR++;
+                Smap.put(nums[sR],Smap.getOrDefault(nums[sR],0)+1);
+                
+                  if(Smap.size()==k)
+                {
+                    removeFromMap(Smap,nums[sR]);
+                      sR--;
+                    break;
+                }
+                
+            }
+            
+            while(l<sR)
+            {
+                f3=true;
+                if(Bmap.size()==k&&Smap.size()==k-1)
+                {
+                    ans+=bR-sR;
+                }
+                l++;
+                int y = nums[l];
+                removeFromMap(Smap,y);
+                removeFromMap(Bmap,y);
+                
+                if(Smap.size()<k-1||Bmap.size()<k)
+                {
+                    break;
+                }
+            }
+            
+            if(f1==false&&f2==false&&f3==false)
+                break;
+        }
+    
+        return ans;
+    }
+}
