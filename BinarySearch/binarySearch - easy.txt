@@ -1,0 +1,27 @@
+class Solution {
+    
+    static int binarySearch(int low,int high, int nums[],int x)
+    {
+        if(low>high)
+            return -1;
+        
+        int mid=low+(high-low)/2;
+        
+        if(nums[mid]==x)
+            return mid;
+        
+        else if(nums[mid]>x)
+           return binarySearch(low,mid-1,nums,x);
+        
+        else
+           return binarySearch(mid+1,high,nums,x);
+        
+    }
+    public int search(int[] nums, int target) {
+        
+        int low=0;
+        int high=nums.length-1;
+        
+        return binarySearch(low,high,nums,target);
+    }
+}
